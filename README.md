@@ -2,20 +2,16 @@
 
 Enable or disable Gutenberg editor for specific post types in WordPress. Perfect for sites where you want to use Classic Editor for selected content while keeping Gutenberg for others.
 
-![WordPress Plugin](https://img.shields.io/badge/WordPress-%3E%3D6.0-blue.svg)
-![PHP Version](https://img.shields.io/badge/PHP-%3E%3D7.4-8892BF.svg)
-![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)
-
 ## Features
 
-- ✅ **Selective Control**: Disable Gutenberg editor for selected post types
-- 🎨 **Modern UI**: Clean, intuitive admin interface with toggle switches
-- 🔒 **Smart Defaults**: Excludes Media (attachment) post type automatically
-- ⚡ **Lightweight**: Minimal performance impact
-- 🎯 **Custom Post Types**: Works seamlessly with custom post types
-- ♿ **Accessible**: Built following WordPress accessibility standards
-- 🌐 **Translation Ready**: Fully internationalized and ready for translation
-- 🔐 **Secure**: Follows WordPress security best practices with proper sanitization and nonces
+- Disable Gutenberg editor for selected post types
+- Clean, intuitive admin interface with toggle switches
+- Excludes Media (attachment) post type automatically
+- Minimal performance impact
+- Works seamlessly with custom post types
+- Built following WordPress accessibility standards
+- Fully internationalized and ready for translation
+- Follows WordPress security best practices
 
 ## Requirements
 
@@ -35,7 +31,7 @@ Enable or disable Gutenberg editor for specific post types in WordPress. Perfect
 
 3. Activate the plugin through the 'Plugins' menu in WordPress
 
-4. Navigate to **Disable Gutenberg** in the WordPress admin menu
+4. Navigate to **Tools > Disable Gutenberg** in the WordPress admin menu
 
 ### Manual Installation
 
@@ -46,34 +42,24 @@ Enable or disable Gutenberg editor for specific post types in WordPress. Perfect
 
 ## Usage
 
-1. After activation, go to **Disable Gutenberg** in your WordPress admin menu
+1. After activation, go to **Tools > Disable Gutenberg** in your WordPress admin menu
 
 2. You'll see a list of all public post types on your site
 
-3. Toggle the switch for any post type where you want to disable Gutenberg:
-   - **Toggle ON** (blue) = Gutenberg is disabled, Classic Editor will be used
-   - **Toggle OFF** (gray) = Gutenberg remains enabled
+3. Toggle the switch for any post type where you want to disable Gutenberg
 
-4. Click **Save Changes**
+4. Click Save Changes
 
 5. The selected post types will now use the Classic Editor while others continue using Gutenberg
-
-## Screenshots
-
-### Admin Settings Page
-The clean, modern interface allows you to easily toggle Gutenberg on/off for each post type.
-
-### Toggle Controls
-Simple toggle switches make it easy to enable or disable Gutenberg for specific post types.
 
 ## How It Works
 
 The plugin uses WordPress's built-in `use_block_editor_for_post_type` filter to selectively disable the block editor for chosen post types. This approach:
 
-- ✅ Is officially supported by WordPress
-- ✅ Works reliably across WordPress versions
-- ✅ Doesn't require any theme modifications
-- ✅ Is completely reversible
+- Is officially supported by WordPress
+- Works reliably across WordPress versions
+- Doesn't require any theme modifications
+- Is completely reversible
 
 ## Technical Details
 
@@ -143,12 +129,12 @@ Yes, the plugin works on multisite installations. It needs to be activated per s
 
 ## Compatibility
 
-- ✅ WordPress 6.0+
-- ✅ PHP 7.4+
-- ✅ Multisite compatible
-- ✅ Works with all themes
-- ✅ Compatible with popular page builders
-- ✅ Translation ready
+- WordPress 6.0+
+- PHP 7.4+
+- Multisite compatible
+- Works with all themes
+- Compatible with popular page builders
+- Translation ready
 
 ## Contributing
 
@@ -210,7 +196,3 @@ Developed and maintained by [Open WP Club](https://github.com/Open-WP-Club).
 
 **Open WP Club**
 - GitHub: [@Open-WP-Club](https://github.com/Open-WP-Club)
-
----
-
-Made with ❤️ for the WordPress community

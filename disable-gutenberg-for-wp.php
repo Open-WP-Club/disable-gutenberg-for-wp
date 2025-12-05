@@ -91,14 +91,13 @@ class Disable_Gutenberg_For_WP {
 	 * Add admin menu.
 	 */
 	public function add_admin_menu() {
-		add_menu_page(
+		add_submenu_page(
+			'tools.php',
 			__( 'Disable Gutenberg', 'disable-gutenberg-for-wp' ),
 			__( 'Disable Gutenberg', 'disable-gutenberg-for-wp' ),
 			'manage_options',
 			'disable-gutenberg-for-wp',
-			array( $this, 'render_admin_page' ),
-			'dashicons-editor-kitchensink',
-			30
+			array( $this, 'render_admin_page' )
 		);
 	}
 
@@ -142,7 +141,7 @@ class Disable_Gutenberg_For_WP {
 	 * @param string $hook Current admin page hook.
 	 */
 	public function enqueue_admin_styles( $hook ) {
-		if ( 'toplevel_page_disable-gutenberg-for-wp' !== $hook ) {
+		if ( 'tools_page_disable-gutenberg-for-wp' !== $hook ) {
 			return;
 		}
 

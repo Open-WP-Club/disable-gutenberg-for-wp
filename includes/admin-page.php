@@ -9,6 +9,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Separate built-in and custom post types.
+$builtin_post_types = array();
+$custom_post_types  = array();
+
+foreach ( $post_types as $post_type ) {
+	if ( $post_type->_builtin ) {
+		$builtin_post_types[] = $post_type;
+	} else {
+		$custom_post_types[] = $post_type;
+	}
+}
 ?>
 
 <div class="wrap dgwp-admin-wrap">
@@ -31,26 +43,66 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="dgwp-card-body">
 						<?php if ( ! empty( $post_types ) ) : ?>
-							<div class="dgwp-post-types-list">
-								<?php foreach ( $post_types as $post_type ) : ?>
-									<div class="dgwp-post-type-item">
-										<label class="dgwp-toggle-label">
-											<input
-												type="checkbox"
-												name="<?php echo esc_attr( $this->option_name ); ?>[]"
-												value="<?php echo esc_attr( $post_type->name ); ?>"
-												<?php checked( in_array( $post_type->name, $disabled_post_types, true ) ); ?>
-												class="dgwp-toggle-checkbox"
-											/>
-											<span class="dgwp-toggle-switch"></span>
-											<span class="dgwp-toggle-text">
-												<strong><?php echo esc_html( $post_type->label ); ?></strong>
-												<span class="dgwp-post-type-name"><?php echo esc_html( $post_type->name ); ?></span>
-											</span>
-										</label>
-									</div>
-								<?php endforeach; ?>
+							<div class="dgwp-bulk-actions">
+								<button type="button" id="dgwp-select-all" class="button">
+									<?php esc_html_e( 'Select All', 'disable-gutenberg-for-wp' ); ?>
+								</button>
+								<button type="button" id="dgwp-deselect-all" class="button">
+									<?php esc_html_e( 'Deselect All', 'disable-gutenberg-for-wp' ); ?>
+								</button>
 							</div>
+
+							<?php if ( ! empty( $builtin_post_types ) ) : ?>
+								<div class="dgwp-post-types-section">
+									<h3 class="dgwp-section-title"><?php esc_html_e( 'Built-in Post Types', 'disable-gutenberg-for-wp' ); ?></h3>
+									<div class="dgwp-post-types-list">
+										<?php foreach ( $builtin_post_types as $post_type ) : ?>
+											<div class="dgwp-post-type-item">
+												<label class="dgwp-toggle-label">
+													<input
+														type="checkbox"
+														name="<?php echo esc_attr( $this->option_name ); ?>[]"
+														value="<?php echo esc_attr( $post_type->name ); ?>"
+														<?php checked( in_array( $post_type->name, $disabled_post_types, true ) ); ?>
+														class="dgwp-toggle-checkbox"
+													/>
+													<span class="dgwp-toggle-switch"></span>
+													<span class="dgwp-toggle-text">
+														<strong><?php echo esc_html( $post_type->label ); ?></strong>
+														<span class="dgwp-post-type-name"><?php echo esc_html( $post_type->name ); ?></span>
+													</span>
+												</label>
+											</div>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endif; ?>
+
+							<?php if ( ! empty( $custom_post_types ) ) : ?>
+								<div class="dgwp-post-types-section">
+									<h3 class="dgwp-section-title"><?php esc_html_e( 'Custom Post Types', 'disable-gutenberg-for-wp' ); ?></h3>
+									<div class="dgwp-post-types-list">
+										<?php foreach ( $custom_post_types as $post_type ) : ?>
+											<div class="dgwp-post-type-item">
+												<label class="dgwp-toggle-label">
+													<input
+														type="checkbox"
+														name="<?php echo esc_attr( $this->option_name ); ?>[]"
+														value="<?php echo esc_attr( $post_type->name ); ?>"
+														<?php checked( in_array( $post_type->name, $disabled_post_types, true ) ); ?>
+														class="dgwp-toggle-checkbox"
+													/>
+													<span class="dgwp-toggle-switch"></span>
+													<span class="dgwp-toggle-text">
+														<strong><?php echo esc_html( $post_type->label ); ?></strong>
+														<span class="dgwp-post-type-name"><?php echo esc_html( $post_type->name ); ?></span>
+													</span>
+												</label>
+											</div>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endif; ?>
 						<?php else : ?>
 							<p class="dgwp-no-post-types">
 								<?php esc_html_e( 'No public post types found.', 'disable-gutenberg-for-wp' ); ?>
@@ -59,10 +111,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<div class="dgwp-card-footer">
-						<?php submit_button( __( 'Save Changes', 'disable-gutenberg-for-wp' ), 'primary', 'submit', false ); ?>
+						<div class="dgwp-footer-actions">
+							<?php submit_button( __( 'Save Changes', 'disable-gutenberg-for-wp' ), 'primary', 'submit', false ); ?>
+						</div>
 						<p class="description">
 							<?php esc_html_e( 'Note: The Media (attachment) post type is excluded by default.', 'disable-gutenberg-for-wp' ); ?>
 						</p>
+					</div>
+				</form>
+
+				<form method="post" action="" class="dgwp-reset-form">
+					<?php wp_nonce_field( 'dgwp_reset_settings', 'dgwp_reset_nonce' ); ?>
+					<div class="dgwp-card-footer dgwp-danger-zone">
+						<h3><?php esc_html_e( 'Reset Settings', 'disable-gutenberg-for-wp' ); ?></h3>
+						<p class="description">
+							<?php esc_html_e( 'This will reset all settings to defaults and enable Gutenberg for all post types.', 'disable-gutenberg-for-wp' ); ?>
+						</p>
+						<button type="submit" name="dgwp_reset_settings" class="button button-secondary dgwp-reset-button" onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to reset all settings? This cannot be undone.', 'disable-gutenberg-for-wp' ); ?>');">
+							<?php esc_html_e( 'Reset to Defaults', 'disable-gutenberg-for-wp' ); ?>
+						</button>
 					</div>
 				</form>
 			</div>

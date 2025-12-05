@@ -72,7 +72,11 @@ class Disable_Gutenberg_For_WP {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'handle_reset_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action( 'admin_notices', array( $this, 'display_admin_notices' ) );
+		add_filter( 'plugin_action_links_' . DGWP_PLUGIN_BASENAME, array( $this, 'add_action_links' ) );
 		add_filter( 'use_block_editor_for_post_type', array( $this, 'disable_gutenberg_for_post_types' ), 10, 2 );
 	}
 
@@ -202,6 +206,98 @@ class Disable_Gutenberg_For_WP {
 	 */
 	public function get_disabled_post_types() {
 		return get_option( $this->option_name, array() );
+	}
+
+	/**
+	 * Add plugin action links.
+	 *
+	 * @param array $links Existing links.
+	 * @return array Modified links.
+	 */
+	public function add_action_links( $links ) {
+		$settings_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( admin_url( 'tools.php?page=disable-gutenberg-for-wp' ) ),
+			esc_html__( 'Settings', 'disable-gutenberg-for-wp' )
+		);
+
+		array_unshift( $links, $settings_link );
+
+		return $links;
+	}
+
+	/**
+	 * Display admin notices.
+	 */
+	public function display_admin_notices() {
+		if ( ! isset( $_GET['page'] ) || 'disable-gutenberg-for-wp' !== $_GET['page'] ) {
+			return;
+		}
+
+		if ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) {
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php esc_html_e( 'Settings saved successfully.', 'disable-gutenberg-for-wp' ); ?></p>
+			</div>
+			<?php
+		}
+
+		if ( isset( $_GET['reset'] ) && 'success' === $_GET['reset'] ) {
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php esc_html_e( 'Settings reset to defaults.', 'disable-gutenberg-for-wp' ); ?></p>
+			</div>
+			<?php
+		}
+	}
+
+	/**
+	 * Handle reset settings action.
+	 */
+	public function handle_reset_settings() {
+		if ( ! isset( $_POST['dgwp_reset_settings'] ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['dgwp_reset_nonce'] ) || ! wp_verify_nonce( $_POST['dgwp_reset_nonce'], 'dgwp_reset_settings' ) ) {
+			wp_die( esc_html__( 'Security check failed.', 'disable-gutenberg-for-wp' ) );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have sufficient permissions.', 'disable-gutenberg-for-wp' ) );
+		}
+
+		delete_option( $this->option_name );
+
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'  => 'disable-gutenberg-for-wp',
+					'reset' => 'success',
+				),
+				admin_url( 'tools.php' )
+			)
+		);
+		exit;
+	}
+
+	/**
+	 * Enqueue admin scripts.
+	 *
+	 * @param string $hook Current admin page hook.
+	 */
+	public function enqueue_admin_scripts( $hook ) {
+		if ( 'tools_page_disable-gutenberg-for-wp' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'dgwp-admin-scripts',
+			DGWP_PLUGIN_URL . 'assets/js/admin-script.js',
+			array( 'jquery' ),
+			DGWP_VERSION,
+			true
+		);
 	}
 }
 

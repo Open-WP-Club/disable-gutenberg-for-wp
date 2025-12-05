@@ -6,7 +6,13 @@ Enable or disable Gutenberg editor for specific post types in WordPress. Perfect
 
 - Disable Gutenberg editor for selected post types
 - Clean, intuitive admin interface with toggle switches
+- Quick Settings link on the Plugins page for easy access
+- Select All/Deselect All buttons for bulk operations
+- Grouped display of built-in and custom post types
+- Reset to Defaults button to restore all settings
+- Success notifications for save and reset actions
 - Excludes Media (attachment) post type automatically
+- Clean uninstall removes all plugin data
 - Minimal performance impact
 - Works seamlessly with custom post types
 - Built following WordPress accessibility standards
@@ -42,15 +48,19 @@ Enable or disable Gutenberg editor for specific post types in WordPress. Perfect
 
 ## Usage
 
-1. After activation, go to **Tools > Disable Gutenberg** in your WordPress admin menu
+1. After activation, go to **Tools > Disable Gutenberg** in your WordPress admin menu (or click Settings on the Plugins page)
 
-2. You'll see a list of all public post types on your site
+2. You'll see post types organized into Built-in Post Types and Custom Post Types sections
 
-3. Toggle the switch for any post type where you want to disable Gutenberg
+3. Use the Select All or Deselect All buttons for quick bulk selection
 
-4. Click Save Changes
+4. Toggle individual switches for specific post types where you want to disable Gutenberg
 
-5. The selected post types will now use the Classic Editor while others continue using Gutenberg
+5. Click Save Changes to apply your settings
+
+6. The selected post types will now use the Classic Editor while others continue using Gutenberg
+
+7. To restore defaults, use the Reset to Defaults button at the bottom of the page
 
 ## How It Works
 
@@ -78,10 +88,13 @@ The plugin follows WordPress coding standards and modern PHP practices:
 ```
 disable-gutenberg-for-wp/
 ├── disable-gutenberg-for-wp.php  # Main plugin file
-├── README.md                      # This file
+├── uninstall.php                  # Uninstall cleanup script
+├── README.md                      # Documentation
 ├── assets/
-│   └── css/
-│       └── admin-style.css        # Admin UI styles
+│   ├── css/
+│   │   └── admin-style.css        # Admin UI styles
+│   └── js/
+│       └── admin-script.js        # Admin JavaScript
 └── includes/
     └── admin-page.php             # Admin page template
 ```
@@ -168,6 +181,12 @@ If you encounter any issues or have questions:
 - Initial release
 - Core functionality to disable Gutenberg per post type
 - Modern admin interface with toggle switches
+- Settings link on Plugins page for quick access
+- Select All/Deselect All buttons for bulk operations
+- Grouped display of built-in and custom post types
+- Reset to Defaults button
+- Success notifications for save and reset actions
+- Clean uninstall script that removes all plugin data
 - WordPress Settings API integration
 - Translation ready
 - Accessibility compliant

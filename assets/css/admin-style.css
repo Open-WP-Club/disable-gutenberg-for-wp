@@ -277,3 +277,72 @@ body.admin-color-ocean .dgwp-toggle-checkbox:checked + .dgwp-toggle-switch {
 body.admin-color-sunrise .dgwp-toggle-checkbox:checked + .dgwp-toggle-switch {
 	background-color: #dd823b;
 }
+
+/* Bulk actions */
+.dgwp-bulk-actions {
+	margin-bottom: 24px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #dcdcde;
+	display: flex;
+	gap: 8px;
+}
+
+.dgwp-bulk-actions .button {
+	font-size: 13px;
+}
+
+/* Post types sections */
+.dgwp-post-types-section {
+	margin-bottom: 24px;
+}
+
+.dgwp-post-types-section:last-child {
+	margin-bottom: 0;
+}
+
+.dgwp-section-title {
+	font-size: 15px;
+	font-weight: 600;
+	color: #1d2327;
+	margin: 0 0 12px 0;
+	padding-bottom: 8px;
+	border-bottom: 2px solid #2271b1;
+}
+
+/* Footer actions */
+.dgwp-footer-actions {
+	margin-bottom: 12px;
+}
+
+/* Reset form */
+.dgwp-reset-form {
+	margin-top: 20px;
+}
+
+.dgwp-danger-zone {
+	background: #fef7f1;
+	border-top: 2px solid #d63638;
+}
+
+.dgwp-danger-zone h3 {
+	margin: 0 0 8px 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #d63638;
+}
+
+.dgwp-danger-zone .description {
+	margin: 0 0 16px 0;
+	color: #646970;
+}
+
+.dgwp-reset-button {
+	color: #d63638;
+	border-color: #d63638;
+}
+
+.dgwp-reset-button:hover {
+	color: #fff;
+	background: #d63638;
+	border-color: #d63638;
+}

@@ -1,0 +1,26 @@
+# WordPress
+.htaccess
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Node modules (if using build tools)
+node_modules/
+
+# Composer
+/vendor/
+
+# OS generated files
+Thumbs.db
